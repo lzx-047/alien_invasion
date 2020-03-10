@@ -44,6 +44,8 @@ def check_play_button(ai_settings,screen,stats,sb,play_button,ship,aliens,bullet
 
     button_clicked=play_button.rect.collidepoint(mouse_x,mouse_y)
     if button_clicked and not stats.game_active:
+        pygame.mixer.music.load("./musics/your_best_friend.mp3")
+        pygame.mixer.music.play(-1)
         ai_settings.initialize_dynamic_settings()
         pygame.mouse.set_visible(False)
         stats.reset_stats()
@@ -51,6 +53,7 @@ def check_play_button(ai_settings,screen,stats,sb,play_button,ship,aliens,bullet
 
         sb.prep_score()
         sb.prep_high_score()
+        sb.stats.level=1
         sb.prep_level()
         sb.prep_ships()
 
@@ -154,6 +157,8 @@ def ship_hit(ai_settings,screen,stats,sb,ship,aliens,bullets):
 
         creat_fleet(ai_settings,screen,ship,aliens)
         ship.center_ship()
+        sleep(1)
+        
 
     else:
         stats.game_active=False
@@ -163,7 +168,7 @@ def check_aliens_bottom(ai_settings,stats,screen,sb,ship,aliens,bullets):
     screen_rect=screen.get_rect()
     for alien in aliens.sprites():
         if alien.rect.bottom>=screen_rect.bottom:
-            ship_hit(ai_settings,screen,stats,ship,aliens,bullets)
+            ship_hit(ai_settings,screen,stats,sb,ship,aliens,bullets)
             break
 
 def update_aliens(ai_settings,screen,stats,sb,ship,aliens,bullets):

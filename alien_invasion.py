@@ -15,6 +15,7 @@ from button import Button
 
 def run_game():
     pygame.init()
+    pygame.mixer.init()
     ai_settings=Settings()
     screen=pygame.display.set_mode(
         (ai_settings.screen_width,ai_settings.screen_height)
