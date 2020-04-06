@@ -186,3 +186,5 @@ def check_high_score(stats,sb):
     if stats.score>stats.high_score:
         stats.high_score=stats.score
         sb.prep_high_score()
+        if stats.score>=(stats.high_score+10000):
+            stats.ships_left+=1
