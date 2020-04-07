@@ -1,5 +1,4 @@
 #main
-#需要pygame模块;
 import sys
 
 import pygame
