@@ -22,6 +22,8 @@ class Settings():
         self.speedup_scale=1.1
         self.score_scale=1.5
 
+        self.font_size=26
+
         self.initialize_dynamic_settings()        
         
     def initialize_dynamic_settings(self):
