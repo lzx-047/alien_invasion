@@ -8,7 +8,7 @@ import game_functions as gf
 from settings import Settings
 from game_stats import GameStats
 from scoreboard import Scoreboard
-from ship import Ship
+from ship import Ship  
 from alien import Alien
 from button import Button
 
@@ -34,6 +34,7 @@ def run_game():
     gf.creat_fleet(ai_settings,screen,ship,aliens)
 
     alien=Alien(ai_settings,screen)
+    print("The score of aliens:")
     while True:
 
         gf.check_events(ai_settings,screen,stats,sb,play_button,ship,aliens,bullets)
