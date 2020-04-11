@@ -7,9 +7,9 @@ from bullet import Bullet
 from alien import Alien
 
 def check_keydown_events(event,ai_settings,screen,ship,bullets,stats,sb,aliens):
-    if event.key==pygame.K_RIGHT:    #or event.key==pygame.K_d
+    if event.key==pygame.K_RIGHT or event.key==pygame.K_d:
         ship.moving_right=True
-    elif event.key==pygame.K_LEFT:    #or event.key==pygame.K_a
+    elif event.key==pygame.K_LEFT or event.key==pygame.K_a:
         ship.moving_left=True
     elif event.key==pygame.K_SPACE:
         fire_bullet(ai_settings,screen,ship,bullets)
