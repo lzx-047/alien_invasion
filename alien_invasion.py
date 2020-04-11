@@ -31,9 +31,9 @@ def run_game():
     bullets=Group()
     aliens=Group()
 
-    gf.creat_fleet(ai_settings,screen,ship,aliens)
+    gf.creat_fleet(ai_settings,screen,ship,aliens,stats)
 
-    alien=Alien(ai_settings,screen)
+    alien=Alien(ai_settings,stats,screen)
     print("The score of aliens:")
     while True:
 

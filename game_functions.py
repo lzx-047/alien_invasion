@@ -35,7 +35,7 @@ def check_keydown_events(event,ai_settings,screen,ship,bullets,stats,sb,aliens):
         aliens.empty()
         bullets.empty()
 
-        creat_fleet(ai_settings,screen,ship,aliens)
+        creat_fleet(ai_settings,screen,ship,aliens,stats)
         ship.center_ship()
 
 def fire_bullet(ai_settings,screen,ship,bullets):
@@ -83,7 +83,7 @@ def check_play_button(ai_settings,screen,stats,sb,play_button,ship,aliens,bullet
         aliens.empty()
         bullets.empty()
 
-        creat_fleet(ai_settings,screen,ship,aliens)
+        creat_fleet(ai_settings,screen,ship,aliens,stats)
         ship.center_ship()
         #重置游戏机制
 def update_screen(ai_settings,screen,stats,sb,ship,aliens,bullets,play_button):
@@ -123,7 +123,7 @@ def check_bullet_alien_collisions(ai_settings,screen,stats,sb,ship,aliens,bullet
     if len(aliens)==0:
         bullets.empty()
         ai_settings.increase_speed()
-        creat_fleet(ai_settings,screen,ship,aliens)
+        creat_fleet(ai_settings,screen,ship,aliens,stats)
         stats.level+=1
         sb.prep_level()
 
@@ -139,24 +139,24 @@ def get_number_rows(ai_settings,ship_height,alien_height):
     number_rows=int(available_space_y/(2*alien_height))
     return number_rows
 
-def creat_alien(ai_settings,screen,aliens,alien_number,row_number):
+def creat_alien(ai_settings,stats,screen,aliens,alien_number,row_number):
 
-    alien=Alien(ai_settings,screen)
+    alien=Alien(ai_settings,stats,screen)
     alien_width=alien.rect.width
     alien.x=alien_width+2*alien_width*alien_number
     alien.rect.x=alien.x
     alien.rect.y=alien.rect.height+2*alien.rect.height*row_number
     aliens.add(alien)
 
-def creat_fleet(ai_settings,screen,ship,aliens):
+def creat_fleet(ai_settings,screen,ship,aliens,stats):
 
-    alien=Alien(ai_settings,screen)
+    alien=Alien(ai_settings,stats,screen)
     number_aliens_x=get_number_aliens_x(ai_settings,alien.rect.width)
     number_rows=get_number_rows(ai_settings,ship.rect.height,alien.rect.height)
     for row_number in range(number_rows):
         for alien_number in range(number_aliens_x):
             creat_alien(
-                ai_settings,screen,aliens,alien_number,row_number
+                ai_settings,stats,screen,aliens,alien_number,row_number
                 )
 
 def check_fleet_edges(ai_settings,aliens):
@@ -178,7 +178,7 @@ def ship_hit(ai_settings,screen,stats,sb,ship,aliens,bullets):
         aliens.empty()
         bullets.empty()
 
-        creat_fleet(ai_settings,screen,ship,aliens)
+        creat_fleet(ai_settings,screen,ship,aliens,stats)
         ship.center_ship()
         sleep(1)
         
