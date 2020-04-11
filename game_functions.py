@@ -46,7 +46,7 @@ def check_play_button(ai_settings,screen,stats,sb,play_button,ship,aliens,bullet
 
     button_clicked=play_button.rect.collidepoint(mouse_x,mouse_y)
     if button_clicked and not stats.game_active:
-        pygame.mixer.music.load("./musics/your_best_friend.mp3")
+        pygame.mixer.music.load("./musics/game_bgm.mp3")
         pygame.mixer.music.play(-1)
         ai_settings.initialize_dynamic_settings()
         pygame.mouse.set_visible(False)
