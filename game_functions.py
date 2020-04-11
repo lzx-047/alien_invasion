@@ -41,30 +41,32 @@ def check_events(ai_settings,screen,stats,sb,play_button,ship,aliens,bullets):
         elif event.type==pygame.MOUSEBUTTONDOWN:
             mouse_x,mouse_y=pygame.mouse.get_pos()
             check_play_button(ai_settings,screen,stats,sb,play_button,ship,aliens,bullets,mouse_x,mouse_y)
+def restart_game(ai_settings,screen,stats,sb,play_button,ship,aliens,bullets,mouse_x,mouse_y):
+    pygame.mixer.music.load("./musics/game_bgm.mp3")
+    pygame.mixer.music.play(-1)
+    ai_settings.initialize_dynamic_settings()
+    pygame.mouse.set_visible(False)
+    stats.reset_stats()
+    stats.game_active=True
+
+    sb.prep_score()
+    sb.prep_high_score()
+    sb.stats.level=1
+    sb.prep_level()
+    sb.prep_ships()
+
+    aliens.empty()
+    bullets.empty()
+
+    creat_fleet(ai_settings,screen,ship,aliens)
+    ship.center_ship()
 
 def check_play_button(ai_settings,screen,stats,sb,play_button,ship,aliens,bullets,mouse_x,mouse_y):
 
     button_clicked=play_button.rect.collidepoint(mouse_x,mouse_y)
     if button_clicked and not stats.game_active:
-        pygame.mixer.music.load("./musics/game_bgm.mp3")
-        pygame.mixer.music.play(-1)
-        ai_settings.initialize_dynamic_settings()
-        pygame.mouse.set_visible(False)
-        stats.reset_stats()
-        stats.game_active=True
-
-        sb.prep_score()
-        sb.prep_high_score()
-        sb.stats.level=1
-        sb.prep_level()
-        sb.prep_ships()
-
-        aliens.empty()
-        bullets.empty()
-
-        creat_fleet(ai_settings,screen,ship,aliens)
-        ship.center_ship()
-
+        restart_game(ai_settings,screen,stats,sb,play_button,ship,aliens,bullets,mouse_x,mouse_y)
+        #重置游戏机制
 def update_screen(ai_settings,screen,stats,sb,ship,aliens,bullets,play_button):
     screen.fill(ai_settings.bg_color)
     for bullet in bullets.sprites():
