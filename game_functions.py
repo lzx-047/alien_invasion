@@ -6,7 +6,7 @@ from time import sleep
 from bullet import Bullet
 from alien import Alien
 
-def check_keydown_events(event,ai_settings,screen,ship,bullets):
+def check_keydown_events(event,ai_settings,screen,ship,bullets,stats,sb,aliens):
     if event.key==pygame.K_RIGHT:    #or event.key==pygame.K_d
         ship.moving_right=True
     elif event.key==pygame.K_LEFT:    #or event.key==pygame.K_a
@@ -16,6 +16,27 @@ def check_keydown_events(event,ai_settings,screen,ship,bullets):
     elif event.key==pygame.K_q:
         pygame.mixer.music.stop()
         sys.exit()
+    elif event.key==pygame.K_r:
+        pygame.mixer.music.load("./musics/game_bgm.mp3")
+        pygame.mixer.music.play(-1)
+        ai_settings.initialize_dynamic_settings()
+        pygame.mouse.set_visible(False)
+        stats.reset_stats()
+        stats.game_active=True
+
+        sb.prep_score()
+        sb.prep_high_score()
+        sb.stats.level=1
+        sb.prep_level()
+        sb.prep_ships()
+
+        aliens.empty()
+        bullets.empty()
+
+        creat_fleet(ai_settings,screen,ship,aliens)
+        ship.center_ship()
+        ai_settings.ship_limit=3
+        stats.ships_left=3
 
 def fire_bullet(ai_settings,screen,ship,bullets):
     #创建新子弹加入到编组“bullets”中
@@ -24,9 +45,9 @@ def fire_bullet(ai_settings,screen,ship,bullets):
         bullets.add(new_bullet)
 
 def check_keyup_events(event,ship):
-    if event.key==pygame.K_RIGHT:    #or event.key==pygame.K_d
+    if event.key==pygame.K_RIGHT or event.key==pygame.K_d:
         ship.moving_right=False
-    elif event.key==pygame.K_LEFT:    #or event.key==pygame.K_a
+    elif event.key==pygame.K_LEFT or event.key==pygame.K_a:
         ship.moving_left=False
 
 def check_events(ai_settings,screen,stats,sb,play_button,ship,aliens,bullets):
@@ -35,37 +56,35 @@ def check_events(ai_settings,screen,stats,sb,play_button,ship,aliens,bullets):
             pygame.mixer.music.stop()
             sys.exit()
         elif event.type==pygame.KEYDOWN:
-            check_keydown_events(event,ai_settings,screen,ship,bullets)
+            check_keydown_events(event,ai_settings,screen,ship,bullets,stats,sb,aliens)
         elif event.type==pygame.KEYUP:
             check_keyup_events(event,ship)
         elif event.type==pygame.MOUSEBUTTONDOWN:
             mouse_x,mouse_y=pygame.mouse.get_pos()
-            check_play_button(ai_settings,screen,stats,sb,play_button,ship,aliens,bullets,mouse_x,mouse_y)
-def restart_game(ai_settings,screen,stats,sb,play_button,ship,aliens,bullets,mouse_x,mouse_y):
-    pygame.mixer.music.load("./musics/game_bgm.mp3")
-    pygame.mixer.music.play(-1)
-    ai_settings.initialize_dynamic_settings()
-    pygame.mouse.set_visible(False)
-    stats.reset_stats()
-    stats.game_active=True
-
-    sb.prep_score()
-    sb.prep_high_score()
-    sb.stats.level=1
-    sb.prep_level()
-    sb.prep_ships()
-
-    aliens.empty()
-    bullets.empty()
-
-    creat_fleet(ai_settings,screen,ship,aliens)
-    ship.center_ship()
+            check_play_button(ai_settings,screen,stats,sb,play_button,ship,aliens,bullets,mouse_x,mouse_y)   
 
 def check_play_button(ai_settings,screen,stats,sb,play_button,ship,aliens,bullets,mouse_x,mouse_y):
 
     button_clicked=play_button.rect.collidepoint(mouse_x,mouse_y)
     if button_clicked and not stats.game_active:
-        restart_game(ai_settings,screen,stats,sb,play_button,ship,aliens,bullets,mouse_x,mouse_y)
+        pygame.mixer.music.load("./musics/game_bgm.mp3")
+        pygame.mixer.music.play(-1)
+        ai_settings.initialize_dynamic_settings()
+        pygame.mouse.set_visible(False)
+        stats.reset_stats()
+        stats.game_active=True
+
+        sb.prep_score()
+        sb.prep_high_score()
+        sb.stats.level=1
+        sb.prep_level()
+        sb.prep_ships()
+
+        aliens.empty()
+        bullets.empty()
+
+        creat_fleet(ai_settings,screen,ship,aliens)
+        ship.center_ship()
         #重置游戏机制
 def update_screen(ai_settings,screen,stats,sb,ship,aliens,bullets,play_button):
     screen.fill(ai_settings.bg_color)
