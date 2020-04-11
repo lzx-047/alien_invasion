@@ -17,6 +17,8 @@ def check_keydown_events(event,ai_settings,screen,ship,bullets,stats,sb,aliens):
         pygame.mixer.music.stop()
         sys.exit()
     elif event.key==pygame.K_r:
+        ai_settings.ship_limit=3
+        stats.ships_left=3
         pygame.mixer.music.load("./musics/game_bgm.mp3")
         pygame.mixer.music.play(-1)
         ai_settings.initialize_dynamic_settings()
@@ -35,8 +37,6 @@ def check_keydown_events(event,ai_settings,screen,ship,bullets,stats,sb,aliens):
 
         creat_fleet(ai_settings,screen,ship,aliens)
         ship.center_ship()
-        ai_settings.ship_limit=3
-        stats.ships_left=3
 
 def fire_bullet(ai_settings,screen,ship,bullets):
     #创建新子弹加入到编组“bullets”中
