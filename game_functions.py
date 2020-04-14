@@ -6,6 +6,7 @@ from time import sleep
 from bullet import Bullet
 from alien import Alien
 
+
 def check_keydown_events(event,ai_settings,screen,ship,bullets,stats,sb,aliens):
     if event.key==pygame.K_RIGHT or event.key==pygame.K_d:
         ship.moving_right=True
@@ -17,7 +18,6 @@ def check_keydown_events(event,ai_settings,screen,ship,bullets,stats,sb,aliens):
         pygame.mixer.music.stop()
         sys.exit()
     elif event.key==pygame.K_r:
-        ai_settings.ship_limit=3
         stats.ships_left=3
         pygame.mixer.music.load("./musics/game_bgm.mp3")
         pygame.mixer.music.play(-1)
@@ -206,7 +206,6 @@ def update_aliens(ai_settings,screen,stats,sb,ship,aliens,bullets):
 def check_high_score(ai_settings,stats,sb):
     if stats.score>stats.high_score:
         if stats.score>=stats.high_score*2:
-            ai_settings.ship_limit+=1
             stats.ships_left+=1
         stats.high_score=stats.score
         sb.prep_high_score()

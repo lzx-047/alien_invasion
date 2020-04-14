@@ -10,17 +10,17 @@ class Alien(Sprite):
 
         if stats.level==1:
             self.image=pygame.image.load(r"./images/alien.bmp")
-        if 1<stats.level<=3:
+        if stats.level==2:
             self.image=pygame.image.load(r"./images/alien_2.bmp")
-        if 3<stats.level<=5:
+        if stats.level==3:
             self.image=pygame.image.load(r"./images/alien_3.bmp")
-        if 5<stats.level<=7:
+        if stats.level==4:
             self.image=pygame.image.load(r"./images/alien_4.bmp")
-        if 7<stats.level<=9:
+        if stats.level==5:
             self.image=pygame.image.load(r"./images/alien_5.bmp")
-        if 9<stats.level<=11:
+        if stats.level==6:
             self.image=pygame.image.load(r"./images/alien_6.bmp")
-        if stats.level>11:
+        if stats.level>=7:
             self.image=pygame.image.load(r"./images/alien_7.bmp")
         self.rect=self.image.get_rect()
 

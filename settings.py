@@ -7,7 +7,6 @@ class Settings():
         self.bg_color=(230,230,230)
 
        
-        self.ship_limit=3
         
         
         self.bullet_width=3
